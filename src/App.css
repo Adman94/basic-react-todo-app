@@ -1,8 +1,8 @@
 .App {
   padding: 10px;
   background-color: #0b0c23;
-  height: fit-content;
   min-height: 100vh;
+  flex: 1
 }
 
 h1 {
@@ -71,7 +71,7 @@ input {
 .todo {
   color: white;
   padding: 10px;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 800;
 }
 
@@ -101,7 +101,6 @@ input {
     display: flex;
     flex-direction: column;
     width: 70%;
-    height: 40px;
   }
 
   .todo-left {
