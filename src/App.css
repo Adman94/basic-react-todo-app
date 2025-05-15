@@ -16,8 +16,7 @@ h1 {
 
 .container {
   align-items: center;
-  width: 60%;
-  padding: 20px;
+  width: 80%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -35,13 +34,6 @@ h1 {
   padding: 10px;
 }
 
-.controls Button {
-  margin: 5px;
-  color: white;
-  border: 2px solid white;
-  background-color: #061f09;
-}
-
 .input {
   padding-bottom: 10px;
 }
@@ -54,6 +46,13 @@ input {
   border: 2px solid rgb(144, 255, 187);
   border-radius: 5px;
   background-color: #e9ffc4;
+}
+
+.controls Button {
+  margin: 5px;
+  color: white;
+  border: 2px solid white;
+  background-color: #061f09;
 }
 
 
@@ -71,7 +70,7 @@ input {
 .todo {
   color: white;
   padding: 10px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 800;
 }
 
@@ -100,7 +99,11 @@ input {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 100%;
+  }
+
+  .todo {
+    text-align: center;
   }
 
   .todo-left {
