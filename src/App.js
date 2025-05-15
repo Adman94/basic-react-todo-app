@@ -43,7 +43,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>DAILY TODO APP</h1>
+      <h1>SIMPLE TODO APP</h1>
       <div className="container">
         <TodoList todos={todos} toggleTodo={toggleTodo} />
         
