@@ -43,25 +43,29 @@ function App() {
 
   return (
     <div className="App">
-      <h1>BASIC TODO APP</h1>
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
-      <div className="controls">
-        <input
-          ref={todoNameRef}
-          id="outlined-basic"
-          placeholder="ENTER TODO HERE"
-          variant="outlined"
-        />
-        <Button onClick={handleAddTodo} variant="outlined">
-          Add Todo
-        </Button>
-        <Button onClick={handleClearTodos} variant="outlined">
-          Clear Completed Todos
-        </Button>
+      <h1>DAILY TODO APP</h1>
+      <div className="container">
+        <TodoList todos={todos} toggleTodo={toggleTodo} />
+        
+        <div className="controls">
+        <div className="input">
+          <input
+            ref={todoNameRef}
+            id="outlined-basic"
+            placeholder="order food, take out trash, etc."
+            variant="outlined"
+          />
+        </div>
+          <Button onClick={handleAddTodo} variant="outlined">
+            Add Todo
+          </Button>
+          <Button onClick={handleClearTodos} variant="outlined">
+            Clear Completed Todos
+          </Button>
+        </div>
+        <div className="todo-left">
+        {todos.filter((todo) => !todo.complete).length} todo left
       </div>
-
-      <div className="todo-left">
-        {todos.filter((todo) => !todo.complete).length} left to do
       </div>
     </div>
   );
