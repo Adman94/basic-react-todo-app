@@ -7,14 +7,17 @@ function Todo({ todo, toggleTodo }) {
   }
   return (
     <div className="todo">
-      <label htmlFor="">
+      <label htmlFor={`todo-${todo.id}`}>
         <input
           className="checkbox"
           type="checkbox"
+          id={`todo-${todo.id}`} // Unique ID for the checkbox
           checked={todo.complete}
           onChange={handleTodoClick}
         />
-        {todo.name}
+        <span className={todo.complete ? 'completed' : ''}>
+          {todo.name}
+        </span>
       </label>
     </div>
   );
