@@ -1,9 +1,4 @@
-import {
-  useGetTodosQuery,
-  useUpdateTodoMutation,
-  useDeleteTodoMutation,
-  useAddTodoMutation,
-} from "../api/apiSlice";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
@@ -11,30 +6,39 @@ import {
   faEdit,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
 const TodoList = () => {
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem("todos");
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  });
   const [newTodo, setNewTodo] = useState("");
-  // State to manage the currently edited todo item's ID
   const [editTodoId, setEditTodoId] = useState(null);
-  // State to manage the input value of the edited todo's title
   const [editTodoTitle, setEditTodoTitle] = useState("");
 
-  const {
-    data: todos,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetTodosQuery();
-  const [addTodo] = useAddTodoMutation();
-  const [updateTodo] = useUpdateTodoMutation();
-  const [deleteTodo] = useDeleteTodoMutation();
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo({ userId: 1, title: newTodo, completed: false });
+    if (newTodo.trim() === "") return;
+    const newId =
+      todos.length > 0 ? Math.max(...todos.map((t) => t.id)) + 1 : 1;
+    setTodos([{ id: newId, title: newTodo, completed: false }, ...todos]);
     setNewTodo("");
+  };
+
+  const handleToggleCompleted = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+  const handleDeleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   const handleEditClick = (todo) => {
@@ -43,16 +47,18 @@ const TodoList = () => {
   };
 
   const handleUpdateClick = (todo) => {
-    updateTodo({ ...todo, title: editTodoTitle });
+    setTodos(
+      todos.map((t) => (t.id === todo.id ? { ...t, title: editTodoTitle } : t))
+    );
     setEditTodoId(null);
     setEditTodoTitle("");
   };
 
   const newItemSection = (
     <form className="form" onSubmit={handleSubmit}>
-      <label htmlFor="new-todo">Enter a new todo item</label>
-      <div className="new-todo">
+      <div className="input">
         <input
+          className="addtodo"
           type="text"
           id="new-todo"
           value={newTodo}
@@ -67,65 +73,51 @@ const TodoList = () => {
   );
 
   let content;
-  if (isLoading) {
-    content = <p>Loading...</p>;
-  } else if (isSuccess) {
-    content = todos.map((todo) => {
-      return (
-        <article key={todo.id}>
-          <div className="todo">
+  if (todos.length === 0) {
+    content = <p>No tasks yet. Add a new one!</p>;
+  } else {
+    content = todos.map((todo) => (
+      <article key={todo.id}>
+        <div className="todo">
+          <input
+            type="checkbox"
+            checked={todo.completed}
+            id={todo.id}
+            onChange={() => handleToggleCompleted(todo.id)}
+          />
+          {editTodoId === todo.id ? (
             <input
-              type="checkbox"
-              checked={todo.completed}
-              id={todo.id}
-              onChange={() =>
-                updateTodo({ ...todo, completed: !todo.completed })
-              }
+              type="text"
+              value={editTodoTitle}
+              onChange={(e) => setEditTodoTitle(e.target.value)}
             />
-            {/* Conditional rendering for the todo title and edit field */}
-            {editTodoId === todo.id ? (
-              <input
-                type="text"
-                value={editTodoTitle}
-                onChange={(e) => setEditTodoTitle(e.target.value)}
-              />
-            ) : (
-              <label
-                htmlFor={todo.id}
-                style={{
-                  textDecoration: todo.completed ? "line-through" : "none",
-                }}
-              >
-                {todo.title}
-              </label>
-            )}
-          </div>
-          <div className="actions-container">
-            {/* Conditional rendering for the edit/update button */}
-            {editTodoId === todo.id ? (
-              <button
-                className="confirm"
-                onClick={() => handleUpdateClick(todo)}
-              >
-                <FontAwesomeIcon icon={faCheck} />
-              </button>
-            ) : (
-              <button className="edit" onClick={() => handleEditClick(todo)}>
-                <FontAwesomeIcon icon={faEdit} />
-              </button>
-            )}
-            <button
-              className="trash"
-              onClick={() => deleteTodo({ id: todo.id })}
+          ) : (
+            <label
+              htmlFor={todo.id}
+              style={{
+                textDecoration: todo.completed ? "line-through" : "none",
+              }}
             >
-              <FontAwesomeIcon icon={faTrash} />
+              {todo.title}
+            </label>
+          )}
+        </div>
+        <div className="actions-container">
+          {editTodoId === todo.id ? (
+            <button className="confirm" onClick={() => handleUpdateClick(todo)}>
+              <FontAwesomeIcon icon={faCheck} />
             </button>
-          </div>
-        </article>
-      );
-    });
-  } else if (isError) {
-    content = <p>{error}</p>;
+          ) : (
+            <button className="edit" onClick={() => handleEditClick(todo)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
+          )}
+          <button className="trash" onClick={() => handleDeleteTodo(todo.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </div>
+      </article>
+    ));
   }
 
   return (
