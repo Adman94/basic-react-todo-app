@@ -1,15 +1,133 @@
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Vend+Sans:ital,wght@0,300..700;1,300..700&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  background-color: #1a1e24;
+  color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.form {
+  border: none;
+}
+
+input[type="text"],
+button {
+  font: inherit;
+  background-color: rgb(208, 239, 239);
+  border: none;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+main {
+  margin: auto;
+  max-width: 600px;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+}
+
+article {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+}
+
+.todo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  min-width: 30px;
+  min-height: 30px;
+  margin-right: 1rem;
+  border: none;
+}
+
+button {
+  min-width: 50px;
+  min-height: 50px;
+  border: none;
+  border-radius: 10%;
+  cursor: pointer;
+  color: #1a1e24;
+}
+
+.actions-container > * {
+  margin: 5px;
+  border: none;
+}
+
+.edit {
+  background-color: #1a1e24;
+  color: rgb(165, 94, 215);
+}
+
+.edit:focus,
+.edit:hover {
+  filter: brightness(120%);
+}
+
+.confirm {
+  background-color: #1a1e24;
+  color: rgb(105, 216, 105);
+}
+
+.confirm:focus,
+.confirm:hover {
+  filter: brightness(120%);
+}
+
+.trash {
+  background-color: #1a1e24;
+  color: mediumvioletred;
+}
+
+.trash:focus,
+.trash:hover {
+  filter: brightness(120%);
+}
+
+form {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #333;
+  margin-bottom: 1rem;
+}
+
+form label {
+  position: absolute;
+  left: -10000px;
+}
+
+.new-todo {
+  width: 100%;
+  padding-right: 30px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 0.5px solid #333;
+}
+
+.submit {
+  background-color: gray;
+  color: #fff;
+}
+
+.submit:focus,
+.submit:hover {
+  background-color: rgb(105, 216, 105);
 }
