@@ -1,0 +1,42 @@
+p {
+  font-size: 40px;
+}
+
+.addRemove > button {
+  padding: 10px;
+  margin: 5px;
+  width: 7%;
+  border: none;
+  background-color: rgb(112, 195, 176);
+  border-radius: 5%;
+  cursor: pointer;
+  color: #000;
+  font-size: 20px;
+}
+
+input {
+  padding: 10px;
+  width: 3em;
+  text-align: center;
+  font-size: 30px;
+}
+
+.byAmounts > button {
+  border: none;
+  padding: 15px;
+  margin: 5px;
+  background-color: #2b3634;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.resetAll {
+  border: none;
+  padding: 15px;
+  margin: 5px;
+  background-color: #ff3801;
+  color: #fff;
+  border-radius: 5%;
+  cursor: pointer;
+}
